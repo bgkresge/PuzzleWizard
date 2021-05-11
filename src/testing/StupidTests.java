@@ -2,7 +2,6 @@ package testing;
 
 import java.util.Collection;
 import java.util.LinkedList;
-import java.util.List;
 
 public class StupidTests {
 
