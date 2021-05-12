@@ -1,6 +1,7 @@
 package testing;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.LinkedList;
 
 public class StupidTests {
@@ -14,7 +15,7 @@ public class StupidTests {
     }
 
     public static <T> Collection<T[]> allPermutations(T[] elements) {
-        Collection<T[]> out = new LinkedList<T[]>();
+        Collection<T[]> out = new HashSet<T[]>();
         out.add(elements.clone());
         int len = elements.length;
         int[] indices = new int[len];
@@ -41,7 +42,7 @@ public class StupidTests {
     }
 
     public static void main(String[] args) {
-        String[] example = new String[]{"A", "B", "C", "D", "E", "F", "G", "H", "I"};
+        String[] example = new String[]{"A", "B", "C", "D", "E", "F", "G", "H", "I","J","K"};
         System.out.println(String.join(", ", example));
         System.out.println("Length: " + example.length);
         System.out.println("Should have " + factorial(example.length) + " permutations");
