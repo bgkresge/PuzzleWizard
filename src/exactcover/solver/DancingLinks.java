@@ -49,6 +49,26 @@ public class DancingLinks {
         }
     }
 
+    public void lock(String entry) {
+        boolean found = false;
+        ListHeader h = (ListHeader) entriesRoot.down;
+        while (h != entriesRoot && !found) {
+            if (h.title.equals(entry)) {
+                found=true;
+                resolveLock(h);
+            }
+            h = (ListHeader) h.down;
+        }
+    }
+
+    private void resolveLock(ListHeader rowHeader){
+        Node n=rowHeader.right;
+        while(n!=rowHeader){
+            coverColumn(n.column);
+            n=n.right;
+        }
+    }
+
     public int constraintsNeeded() {
         return requiredConstraintsRoot.size;
     }

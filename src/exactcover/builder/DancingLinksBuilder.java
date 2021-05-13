@@ -11,6 +11,7 @@ import java.util.HashMap;
 public class DancingLinksBuilder {
     DancingLinks dl;
     HashMap<String, ListHeader> allConstraints;
+    HashMap<String, ListHeader> allEntries;
 
     public DancingLinksBuilder() {
         initializeDL();
@@ -19,6 +20,7 @@ public class DancingLinksBuilder {
     private void initializeDL() {
         dl = new DancingLinks();
         allConstraints = new HashMap<>();
+        allEntries=new HashMap<>();
         dl.setRequiredConstraintsRoot(new ListHeader("Required Constraints"));
         dl.setOptionalConstraintsRoot(new ListHeader("Optional Constraints"));
         dl.setEntriesRoot(new ListHeader("Entries"));
@@ -48,8 +50,13 @@ public class DancingLinksBuilder {
     }
 
     public boolean addEntry(String title, Collection<String> constraintsFilled) {
+        if (allEntries.containsKey(title)) {
+            return false;
+        }
         ListHeader rowHeader = new ListHeader(title);
         rowHeader.setColumn(dl.getEntriesRoot());
+        addToColumn(rowHeader);
+        allEntries.put(title, rowHeader);
         for (String constraint : constraintsFilled) {
             if (!allConstraints.containsKey(constraint)) {
                 return false;
@@ -86,5 +93,18 @@ public class DancingLinksBuilder {
 
     public DancingLinks getDancingLinks() {
         return dl;
+    }
+
+    public boolean lock(String entry) {
+        if (!allEntries.containsKey(entry)) {
+            return false;
+        }
+        ListHeader rowHeader = allEntries.get(entry);
+        Node n= rowHeader.getRight();
+        while (n!=rowHeader){
+            dl.coverColumn(n.getColumn());
+            n=n.getRight();
+        }
+        return true;
     }
 }
