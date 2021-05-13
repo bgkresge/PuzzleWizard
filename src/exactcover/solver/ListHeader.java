@@ -1,12 +1,15 @@
 package exactcover.solver;
 
 public class ListHeader extends Node {
-    String title;
-    int size;
-    ListHeader root;
+    protected String title;
+    protected int size;
 
     public ListHeader(String title) {
         this.title = title;
-        size = 0;
+        this.size = 0;
+    }
+
+    public void incrementSize() {
+        size++;
     }
 }
