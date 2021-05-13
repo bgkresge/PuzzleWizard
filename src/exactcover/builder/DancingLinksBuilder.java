@@ -20,7 +20,7 @@ public class DancingLinksBuilder {
     private void initializeDL() {
         dl = new DancingLinks();
         allConstraints = new HashMap<>();
-        allEntries=new HashMap<>();
+        allEntries = new HashMap<>();
         dl.setRequiredConstraintsRoot(new ListHeader("Required Constraints"));
         dl.setOptionalConstraintsRoot(new ListHeader("Optional Constraints"));
         dl.setEntriesRoot(new ListHeader("Entries"));
@@ -100,10 +100,10 @@ public class DancingLinksBuilder {
             return false;
         }
         ListHeader rowHeader = allEntries.get(entry);
-        Node n= rowHeader.getRight();
-        while (n!=rowHeader){
+        Node n = rowHeader.getRight();
+        while (n != rowHeader) {
             dl.coverColumn(n.getColumn());
-            n=n.getRight();
+            n = n.getRight();
         }
         return true;
     }
