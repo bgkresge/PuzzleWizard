@@ -17,6 +17,7 @@ public class NxNSudokuDLX {
         this.dlb = new DancingLinksBuilder();
         addAllConstraints();
         addAllEntries();
+        System.out.printf("%dx%d Sudoku Dancing Links Constructed%n",N*N,N*N);
     }
 
     private void addAllConstraints() {
@@ -65,11 +66,12 @@ public class NxNSudokuDLX {
     }
 
     public void solve() {
-        DLX dlx = new DLX(dlb.getDancingLinks());
+        DLX dlx = new DLX(dlb.getDancingLinks(),new SudokuWatcher());
         dlx.searchForAll(numToFind);
     }
 
     public static void main(String[] args) {
+        System.out.println("Solving 'Hard' 9x9");
         NxNSudokuDLX sdlx = new NxNSudokuDLX(3);
         sdlx.addGiven("R1C1V8");
         sdlx.addGiven("R2C3V3");

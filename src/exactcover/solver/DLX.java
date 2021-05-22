@@ -1,15 +1,19 @@
 package exactcover.solver;
 
-import exactcover.builder.DancingLinksBuilder;
-
 import java.util.StringJoiner;
 
 public class DLX {
     DancingLinks dancingLinks;
     Node[] solution;
+    DLXWatcher watcher = new DefaultWatcher();
 
 
     public DLX(DancingLinks dl) {
+        this.dancingLinks = dl;
+    }
+
+    public DLX(DancingLinks dl, DLXWatcher watcher) {
+        this.watcher = watcher;
         this.dancingLinks = dl;
     }
 
@@ -19,32 +23,22 @@ public class DLX {
     }
 
     private void searchAll(int k) {
-       // System.out.println("search depth "+k);
-//        try {
-//            Thread.sleep(1000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-        if (!(k <= solution.length)) {
-            //System.out.println("back: length");
+        if (k > solution.length) {
             return;
         }
         if (dancingLinks.constraintsNeeded() == 0) {
-            printSolution();
-            //System.out.println("back: found");
+            watcher.solutionFound(solution);
             return;
         }
         ListHeader chosenConstraint = chooseConstraint();
         if (chosenConstraint.size == 0) {
-           // System.out.println("back: constraint " + chosenConstraint.title + " is impossible");
             return;
         }
-        //System.out.println("chose constraint " + chosenConstraint.title + " with size " + chosenConstraint.size);
         dancingLinks.coverColumn(chosenConstraint);
         Node selected = chosenConstraint.down;
         while (selected != chosenConstraint) {
-          //  System.out.println("selected " + selected.row.title);
             solution[k] = selected;
+            watcher.solutionUpdated(solution, k);
             Node rowMate = selected.right;
             while (rowMate != selected) {
                 dancingLinks.coverColumn(rowMate.column);
@@ -62,7 +56,7 @@ public class DLX {
     }
 
     private void printSolution() {
-        StringJoiner sj = new StringJoiner(", ","{","}");
+        StringJoiner sj = new StringJoiner(", ", "{", "}");
         for (Node n : solution) {
             sj.add(n.row.title);
         }
