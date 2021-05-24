@@ -12,4 +12,8 @@ public class ListHeader extends Node {
     public void incrementSize() {
         size++;
     }
+
+    public String getTitle(){
+        return title;
+    }
 }

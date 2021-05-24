@@ -1,16 +1,14 @@
 package exactcover.solver;
 
-import java.util.StringJoiner;
-
-public class DefaultWatcher extends DLXWatcher{
+public class DefaultWatcher extends DLXWatcher {
     @Override
     protected void solutionUpdated(Node[] soln, int idx) {
-        printCurrentSolution(soln,idx);
+        System.out.println(outputCurrentSolution(soln, idx));
     }
 
     @Override
     protected void solutionFound(Node[] soln) {
-        printCurrentSolution(soln,soln.length-1);
+        System.out.println(outputCurrentSolution(soln, soln.length - 1));
     }
 
 

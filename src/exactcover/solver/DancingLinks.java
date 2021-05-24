@@ -54,18 +54,18 @@ public class DancingLinks {
         ListHeader h = (ListHeader) entriesRoot.down;
         while (h != entriesRoot && !found) {
             if (h.title.equals(entry)) {
-                found=true;
+                found = true;
                 resolveLock(h);
             }
             h = (ListHeader) h.down;
         }
     }
 
-    private void resolveLock(ListHeader rowHeader){
-        Node n=rowHeader.right;
-        while(n!=rowHeader){
+    private void resolveLock(ListHeader rowHeader) {
+        Node n = rowHeader.right;
+        while (n != rowHeader) {
             coverColumn(n.column);
-            n=n.right;
+            n = n.right;
         }
     }
 

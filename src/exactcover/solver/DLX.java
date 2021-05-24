@@ -28,7 +28,6 @@ public class DLX {
         }
         if (dancingLinks.constraintsNeeded() == 0) {
             watcher.solutionFound(solution);
-            return;
         }
         ListHeader chosenConstraint = chooseConstraint();
         if (chosenConstraint.size == 0) {
